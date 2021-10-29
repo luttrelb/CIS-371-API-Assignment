@@ -40,13 +40,13 @@ app.get('/', function(req, res){
 	res.send(`Simple note-taking app. Version ${VERSION}.`);
 });
 
-app.post(){
+app.delete('/notes/:userId', function(req, res){
+	res.sendStatus(200);
+});
 
-}
+//app.update(){
 
-app.delete(){
-	
-}
+//}
 
 app.get('/notes', note.getAll);
 app.get('/notes/:searchTerm', note.getOne);
