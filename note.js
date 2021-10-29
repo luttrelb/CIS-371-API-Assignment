@@ -41,7 +41,7 @@ exports.deleteOne = async function(req, res){
 				console.log("No note was returned");
 			}
 			else {
-				return res.sendStatus(404);
+				return res.sendStatus(200);
 			}
 		});
 	}
@@ -54,13 +54,41 @@ exports.deleteOne = async function(req, res){
 //create the putOne function
 //export it so we can use it in app.js
 exports.putOne = async function(req, res){
-	
+	try {
+		const note = new Note({
+			subject: req.body.subject,
+			course: req.body.course,
+			note: req.body.note
+		})
+		var noteId = await Note.putOne({_id: req.params.userId}, function (err){
+			if(!noteId){
+				console.log("No note was found");
+			}
+			else (note.save());
+		})
+	}
+	catch{
+
+	}
 }
 
 //create the putOne function
 //export it so we can use it in app.js
 exports.updateOne = async function(req, res){
-
+	const note = new Note({
+		subject: req.body.subject,
+		course: req.body.course,
+		note: req.body.note
+	});
+	let error = note.validateSync();
+	if(error){
+		res.sendStatus(400);
+		console.log(error);
+		return;
+	}
+	note.save();
+	res.sendStatus(200);
+	return;
 }
 
 // Create the getOne function.
