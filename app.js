@@ -40,6 +40,14 @@ app.get('/', function(req, res){
 	res.send(`Simple note-taking app. Version ${VERSION}.`);
 });
 
+app.post(){
+
+}
+
+app.delete(){
+	
+}
+
 app.get('/notes', note.getAll);
 app.get('/notes/:searchTerm', note.getOne);
 app.post('/notes', note.postOne);
