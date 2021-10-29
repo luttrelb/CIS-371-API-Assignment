@@ -25,8 +25,42 @@ const Note = mongoose.model('Note', noteSchema);
 // Create the function for getting ALL the notes.
 // export it so we can use it in app.js.
 exports.getAll = async function(req, res) {
-	const notes = await Note.find({});
+	const notes = await Note.find({
+		
+	});
 	res.json(notes);
+}
+
+//create the deleteOne function
+//export it so we can use it in app.js
+exports.deleteOne = async function(req, res){
+	console.log("Found the ID of " + req.params.useId);
+	try {
+		var note = await Note.deleteOne({_id: req.params.userId }, function (err) {
+			if(!note){
+				console.log("No note was returned");
+			}
+			else {
+				return res.sendStatus(404);
+			}
+		});
+	}
+	catch (err){
+		console.log(err);
+		res.sendStatus(500);
+	}
+}
+
+//create the putOne function
+//export it so we can use it in app.js
+exports.putOne = async function(req, res){
+	
+}
+
+//create the putOne function
+//export it so we can use it in app.js
+exports.updateOne = async function(req, res){
+
 }
 
 // Create the getOne function.
