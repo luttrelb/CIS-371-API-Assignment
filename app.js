@@ -44,6 +44,10 @@ app.delete('/', function(req, res){
 	res.sendStatus(200);
 });
 
+app.put('/', function(req, res){
+	res.sendStatus(200);
+});
+
 //app.update(){
 
 //}
@@ -52,6 +56,7 @@ app.get('/notes', note.getAll);
 app.get('/notes/:searchTerm', note.getOne);
 app.post('/notes', note.postOne);
 app.delete('/notes/:userId', note.deleteOne);
+app.put('/notes/:userId', note.putOne);
 
 // Start it up!
 app.listen(port, () => {
