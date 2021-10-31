@@ -40,7 +40,7 @@ app.get('/', function(req, res){
 	res.send(`Simple note-taking app. Version ${VERSION}.`);
 });
 
-app.delete('/notes/:userId', function(req, res){
+app.delete('/', function(req, res){
 	res.sendStatus(200);
 });
 
@@ -51,6 +51,7 @@ app.delete('/notes/:userId', function(req, res){
 app.get('/notes', note.getAll);
 app.get('/notes/:searchTerm', note.getOne);
 app.post('/notes', note.postOne);
+app.delete('/notes/:userId', note.deleteOne);
 
 // Start it up!
 app.listen(port, () => {
