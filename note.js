@@ -4,6 +4,7 @@
  */
 
 // Pull in the mongoose library.
+const { Router } = require('express');
 const mongoose = require('mongoose');
 
 // Grab the Schema object.
@@ -34,6 +35,7 @@ exports.getAll = async function(req, res) {
 //export it so we can use it in app.js
 exports.deleteOne = async function(req, res){
 	console.log("Found the ID of " + req.params.useId);
+	
 	try {
 		let note = await Note.deleteOne({_id: req.params.userId });
 		// console.log(note);
@@ -52,24 +54,27 @@ exports.deleteOne = async function(req, res){
 
 //create the putOne function
 //export it so we can use it in app.js
+
 exports.putOne = async function(req, res){
 	try {
-		const note = new Note({
-			subject: req.body.subject,
-			course: req.body.course,
-			note: req.body.note
-		})
-		var noteId = await Note.putOne({_id: req.params.userId}, function (err){
-			if(!noteId){
-				console.log("No note was found");
-			}
-			else (note.save());
-		})
-	}
-	catch{
+			
+		let note = await Note.findByIdAndUpdate({_id: req.params.userId }, req.body);
+				
+		if (!note) {
+			console.log("could not fufill request")
+		}
+		else {
 
+			return res.send(await Note.findOne({_id: req.params.userId }));
+				
+		}
+	}
+	catch(err){
+		console.log(err);
+		res.sendStatus(500);
 	}
 }
+
 
 //create the putOne function
 //export it so we can use it in app.js
