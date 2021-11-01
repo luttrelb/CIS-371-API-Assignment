@@ -1,6 +1,8 @@
 /**
  * Functions for the note routes.
- *
+ * 
+ * @author Quinton Kulak, David Borowicz, Brennan Luttrel
+ * @version Fall 2021
  */
 
 // Pull in the mongoose library.
@@ -31,7 +33,7 @@ exports.getAll = async function(req, res) {
 	res.json(notes);
 }
 
-//create the deleteOne function
+//delete one function searches for an Id and deletes that object
 //export it so we can use it in app.js
 exports.deleteOne = async function(req, res){
 	console.log("Found the ID of " + req.params.useId);
@@ -52,7 +54,7 @@ exports.deleteOne = async function(req, res){
 	}
 }
 
-//create the putOne function
+//The putone function takes the request body and changes the object's fields
 //export it so we can use it in app.js
 
 exports.putOne = async function(req, res){
@@ -76,7 +78,7 @@ exports.putOne = async function(req, res){
 }
 
 
-//create the putOne function
+//updateOne function takes the request body and updates the designated fields.
 //export it so we can use it in app.js
 exports.updateOne = async function (req, res) {
 	console.log("Replaced the field with the ID " + req.params.userId + "to ")
