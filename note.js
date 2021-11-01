@@ -4,6 +4,7 @@
  */
 
 // Pull in the mongoose library.
+const { Router } = require('express');
 const mongoose = require('mongoose');
 
 // Grab the Schema object.
@@ -24,28 +25,28 @@ const Note = mongoose.model('Note', noteSchema);
 
 // Create the function for getting ALL the notes.
 // export it so we can use it in app.js.
-exports.getAll = async function (req, res) {
+exports.getAll = async function(req, res) {
 	const notes = await Note.find({
-
 	});
 	res.json(notes);
 }
 
 //create the deleteOne function
 //export it so we can use it in app.js
-exports.deleteOne = async function (req, res) {
-	console.log("Found the ID of " + req.params.userId);
+exports.deleteOne = async function(req, res){
+	console.log("Found the ID of " + req.params.useId);
+	
 	try {
-		var note = await Note.deleteOne({ _id: req.params.userId }, function (err) {
-			if (!note) {
-				console.log("No note was returned");
-			}
-			else {
-				return res.sendStatus(404);
-			}
-		});
+		let note = await Note.deleteOne({_id: req.params.userId });
+		// console.log(note);
+		if(!note){
+			console.log("No note was returned");
+		}
+		else {
+			return res.sendStatus(200);
+		}
 	}
-	catch (err) {
+	catch (err){
 		console.log(err);
 		res.sendStatus(500);
 	}
@@ -53,17 +54,34 @@ exports.deleteOne = async function (req, res) {
 
 //create the putOne function
 //export it so we can use it in app.js
-exports.putOne = async function (req, res) {
-	console.log("Found the ID ")
+
+exports.putOne = async function(req, res){
+	try {
+			
+		let note = await Note.findByIdAndUpdate({_id: req.params.userId }, req.body);
+				
+		if (!note) {
+			console.log("could not fufill request")
+		}
+		else {
+
+			return res.send(await Note.findOne({_id: req.params.userId }));
+				
+		}
+	}
+	catch(err){
+		console.log(err);
+		res.sendStatus(500);
+	}
 }
 
 
-//create the putOne function
+//create the putOne function MY ATTEMPT AT UPDATE ONE NOT SURE WHY THE OTHER UPDATE IS THERE
 //export it so we can use it in app.js
-exports.updateMany = async function (req, res) {
+exports.updateOne = async function (req, res) {
 	console.log("Replaced the field with the ID " + req.params.userID + "to ")
 	try {
-		let note = await Note.updateMany({ _id: req.params.userID }, { note: 'test' }, function (err, res) {
+		let note = await Note.updateOne({ _id: req.params.userID }, { note: 'test' }, function (err, res) {
 			if (!note) {
 				console.log("No note was returned");
 			}
@@ -77,23 +95,42 @@ exports.updateMany = async function (req, res) {
 		res.sendStatus(500);
 	}
 
+}
+
+//create the putOne function
+//export it so we can use it in app.js
+exports.updateOne = async function(req, res){
+	const note = new Note({
+		subject: req.body.subject,
+		course: req.body.course,
+		note: req.body.note
+	});
+	let error = note.validateSync();
+	if(error){
+		res.sendStatus(400);
+		console.log(error);
+		return;
+	}
+	note.save();
+	res.sendStatus(200);
+	return;
 }
 
 // Create the getOne function.
 // export it so we can use it in app.js.
-exports.getOne = async function (req, res) {
+exports.getOne = async function(req, res){
 	// The getOne function searches the note field in
 	// all of our notes for a search term.  It returns
 	// all the notes that match.
 	// We are using a regex to search.
-	const notes = await Note.find({
-		note: {
-			$regex: req.params.searchTerm
+	const notes = await Note.find({ 
+		note: { 
+			$regex: req.params.searchTerm 
 		}
 	});
-
+	
 	// If there are none that match, send a 404.
-	if (notes.length == 0) {
+	if(notes.length == 0){
 		res.sendStatus(404);
 		return;
 	}
@@ -104,7 +141,7 @@ exports.getOne = async function (req, res) {
 
 // Create the function for creating a new note.
 // export is so we can use it in app.js.
-exports.postOne = async function (req, res) {
+exports.postOne = async function(req, res){
 	const note = new Note({
 		subject: req.body.subject,
 		course: req.body.course,
@@ -112,7 +149,7 @@ exports.postOne = async function (req, res) {
 	});
 
 	let error = note.validateSync();
-	if (error) {
+	if(error){
 		res.sendStatus(400);
 		console.log(error);
 		return;
