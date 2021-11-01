@@ -58,7 +58,7 @@ exports.deleteOne = async function(req, res){
 exports.putOne = async function(req, res){
 	try {
 			
-		let note = await Note.findByIdAndUpdate({_id: req.params.userId }, req.body);
+		let note = await Note.putOne({_id: req.params.userId }, req.body);
 				
 		if (!note) {
 			console.log("could not fufill request")
@@ -78,27 +78,8 @@ exports.putOne = async function(req, res){
 
 //create the putOne function
 //export it so we can use it in app.js
-exports.updateOne = async function(req, res){
-	const note = new Note({
-		subject: req.body.subject,
-		course: req.body.course,
-		note: req.body.note
-	});
-	let error = note.validateSync();
-	if(error){
-		res.sendStatus(400);
-		console.log(error);
-		return;
-	}
-	note.save();
-	res.sendStatus(200);
-	return;
-}
-
-//DAVIDS create the putOne function
-//export it so we can use it in app.js
 exports.updateOne = async function (req, res) {
-	console.log("Replaced the field with the ID " + req.params.userID + "to ")
+	console.log("Replaced the field with the ID " + req.params.userId + "to ")
 	
 	const note = new Note({
 		subject: req.body.subject,
@@ -107,14 +88,14 @@ exports.updateOne = async function (req, res) {
 	});
 	
 	try {
-		let note = await Note.updateOne({ _id: req.params.userID }, { note: 'test' }, function (err, res) {
+		let note = await Note.updateOne({ _id: req.params.userId }, req.body) 
 			if (!note) {
 				console.log("No note was returned");
 			}
 			else {
 				return res.sendStatus(200);
 			}
-		});
+		
 	}
 	catch (err) {
 		console.log(err);
