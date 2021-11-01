@@ -48,10 +48,6 @@ app.put('/', function(req, res){
 	res.sendStatus(200);
 });
 
-app.patch('/', function(req, res){
-	res.sendStatus(200)
-});
-
 //app.update(){
 
 //}
@@ -61,7 +57,6 @@ app.get('/notes/:searchTerm', note.getOne);
 app.post('/notes', note.postOne);
 app.delete('/notes/:userId', note.deleteOne);
 app.put('/notes/:userId', note.putOne);
-app.patch('/notes/:userId', note.updateOne);
 
 // Start it up!
 app.listen(port, () => {
