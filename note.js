@@ -76,27 +76,6 @@ exports.putOne = async function(req, res){
 }
 
 
-//create the putOne function MY ATTEMPT AT UPDATE ONE NOT SURE WHY THE OTHER UPDATE IS THERE
-//export it so we can use it in app.js
-exports.updateOne = async function (req, res) {
-	console.log("Replaced the field with the ID " + req.params.userID + "to ")
-	try {
-		let note = await Note.updateOne({ _id: req.params.userID }, { note: 'test' }, function (err, res) {
-			if (!note) {
-				console.log("No note was returned");
-			}
-			else {
-				return res.sendStatus(404);
-			}
-		});
-	}
-	catch (err) {
-		console.log(err);
-		res.sendStatus(500);
-	}
-
-}
-
 //create the putOne function
 //export it so we can use it in app.js
 exports.updateOne = async function(req, res){
