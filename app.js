@@ -1,6 +1,8 @@
 /**
  * Simple Note-Taking App.
- * Mr.W
+ * 
+ * @author Quinton Kulak, David Borowicz, Brennan Luttrel
+ * @version Fall 2021
  * 
  * VERY basic code to illustrate creating basic routes
  * and handlers.
@@ -52,10 +54,6 @@ app.patch('/', function(req, res){
 	res.sendStatus(200);
 });
 
-
-//app.update(){
-
-//}
 
 app.get('/notes', note.getAll);
 app.get('/notes/:searchTerm', note.getOne);
