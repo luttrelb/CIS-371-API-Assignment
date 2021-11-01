@@ -49,8 +49,9 @@ app.put('/', function(req, res){
 });
 
 app.patch('/', function(req, res){
-	res.sendStatus(200)
+	res.sendStatus(200);
 });
+
 
 //app.update(){
 
