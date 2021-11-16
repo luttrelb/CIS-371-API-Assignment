@@ -34,7 +34,7 @@ const userSchema = new Schema({
 });
 
 // "Compile" the Schema into a model.
-const User = mongoose.model('User', userSchema);
+//const User = mongoose.model('User', userSchema);
 
 // Create the function for getting ALL the notes.
 // export it so we can use it in app.js.
@@ -185,7 +185,7 @@ exports.postOne = async function(req, res){
 	res.sendStatus(200);
 	return;
 }
-const User = mongoose.model('User', noteSchema);
+//const User = mongoose.model('User', noteSchema);
 
 // Create the function for getting ALL the notes.
 // export it so we can use it in app.js.
