@@ -105,7 +105,7 @@ app.get('/', function (req, res) {
 app.get('/users', passport.authenticate('basic', {session: false}), user.getAll);
 app.get('/users', checkAuth, user.getAll);
 app.post('/users', checkAuth, user.postOne);
-app.delete('/users/:username', user.deleteOne);
+app.delete('/users/:username', checkAuth, user.deleteOne);
 add.save();
 
 app.listen(port, () => {
