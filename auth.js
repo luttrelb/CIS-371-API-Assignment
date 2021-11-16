@@ -102,9 +102,10 @@ app.post('/users', checkAuth, async function (req, res) {
 app.get('/', function (req, res) {
 	res.send(`Simple note-taking app. Version ${VERSION}.`);
 });
+app.get('/users', passport.authenticate('basic', {session: false}), user.getAll);
 app.get('/users', checkAuth, user.getAll);
 app.post('/users', checkAuth, user.postOne);
-
+app.delete('/users/:username', user.deleteOne);
 add.save();
 
 app.listen(port, () => {
