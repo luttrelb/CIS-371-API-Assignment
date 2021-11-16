@@ -40,6 +40,7 @@ const userSchema = new Schema({
 // export it so we can use it in app.js.
 exports.getAll = async function(req, res) {
 	const users = await User.find({
+		username : req.user.__id
 	});
 	res.json(users);
 }
