@@ -39,7 +39,7 @@ const userSchema = new Schema({
 // Create the function for getting ALL the notes.
 // export it so we can use it in app.js.
 exports.getAll = async function(req, res) {
-	const users = await User.find({
+	const users = await Note.find({
 		username : req.user.__id
 	});
 	res.json(users);
