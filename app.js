@@ -35,8 +35,6 @@ try {
 
 const checkAuth = passport.authenticate('basic', { session: false });
 
-
-
 // Create the app instance
 const app = express();
 const port = 8080;
@@ -54,13 +52,6 @@ app.use(express.json());
 // Set routes
 
 app.get('/blah', user.createOne);
-// app.get('/notes', checkAuth, note.getAll);
-// app.get('/notes/:searchTerm', checkAuth, note.getOne);
-// app.post('/notes', checkAuth, note.postOne);
-
-// app.get('/', function(req, res){
-// 	res.send(`Simple note-taking app. Version ${VERSION}.`);
-// });
 
 app.delete('/', function(req, res){
 	res.sendStatus(200);
