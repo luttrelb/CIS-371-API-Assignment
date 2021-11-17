@@ -13,16 +13,14 @@ const port = 8080;
 
 // Connect to the database
 // CHANGE THIS TO YOUR DB CONNECTION UNLESS YOU ARE TESTING AGAINST MINE.
-const uri = 'mongodb+srv://mrwoodring:toomanysecrets@cluster0.tcppw.mongodb.net/test'
+// const uri = 'mongodb+srv://mrwoodring:toomanysecrets@cluster0.tcppw.mongodb.net/test'
+// try {
+// 	mongoose.connect(uri);
+// } catch (err){
+// 	console.log(err);
+// }
 
-try {
-	mongoose.connect(uri);
-	if (mongoose.connect(uri)) {
-		console.log("connected");
-	}
-} catch (err){
-	console.log(err);
-}
+
 
 
 const userSchema = new Schema({
@@ -108,6 +106,7 @@ app.post('/users', checkAuth, user.postOne);
 app.delete('/users/:username', checkAuth, user.deleteOne);
 add.save();
 
-app.listen(port, () => {
-	console.log(`Up and running on port ${port}.`);
-});
+// Start it up!
+// app.listen(port, () => {
+// 	console.log(`Up and running on port ${port}.`);
+// });
