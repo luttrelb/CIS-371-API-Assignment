@@ -11,18 +11,6 @@ const user = require('./users');
 const app = express();
 const port = 8080;
 
-// Connect to the database
-// CHANGE THIS TO YOUR DB CONNECTION UNLESS YOU ARE TESTING AGAINST MINE.
-// const uri = 'mongodb+srv://mrwoodring:toomanysecrets@cluster0.tcppw.mongodb.net/test'
-// try {
-// 	mongoose.connect(uri);
-// } catch (err){
-// 	console.log(err);
-// }
-
-
-
-
 const userSchema = new Schema({
 	username: {
 		type: String,
@@ -41,7 +29,6 @@ const userSchema = new Schema({
 		default: Date.now
 	}
 });
-//#!/usr/bin/env node
 
 const validPassword = function (password, salt, hash) {
 	let key = pbkdf2.pbkdf2Sync(password, salt, 1, 32, 'sha512');
@@ -105,8 +92,3 @@ app.get('/users', checkAuth, user.getAll);
 app.post('/users', checkAuth, user.postOne);
 app.delete('/users/:username', checkAuth, user.deleteOne);
 add.save();
-
-// Start it up!
-// app.listen(port, () => {
-// 	console.log(`Up and running on port ${port}.`);
-// });
