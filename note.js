@@ -137,7 +137,7 @@ exports.postOne = async function(req, res){
 		course: req.body.course,
 		note: req.body.note
 	});
-
+	const port = 8080;
 	let error = note.validateSync();
 	if(error){
 		res.sendStatus(400);
